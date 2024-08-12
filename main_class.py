@@ -3,8 +3,8 @@ from tkinter import *
 import random
 import time
 
-flag=int(1)
-flag1=int(1)
+flag = int(1)
+flag1 = int(1)
 back_color = "#021526"
 my_line_color = "#6EACDA"
 action_color = "#E2E2B6"
@@ -16,25 +16,25 @@ board = [[7, 7, 7],
          [7, 7, 7],
          [7, 7, 7]]
 
+def quit_game():
+    flag1=int(0)
+
 
 def reset_game():
     global game_step
     for i in range(3):
         for j in range(3):
             board[i][j] = int(7)
-    flag=int(0)
+    flag = int(0)
     time.sleep(1)
-    flag0=int(1)
+    flag0 = int(1)
     game_step = int(1)
     window.destroy()
     print(game_step)
 
 
-
-
-
 def check_win():
-    canvas1=Canvas(window, height=50, width=400, bg=back_color)
+    canvas1 = Canvas(window, height=50, width=400, bg=back_color)
 
     # We check the row for each player's win
     if board[0][0] == board[0][1] == board[0][2] != 7 or board[0][0] == board[0][1] == board[0][2] != 7:
@@ -51,7 +51,6 @@ def check_win():
         canvas1.create_text(205, 25, text=f"Game over\nPlayer {board[2][1]} win", fill="white", font=12)
         canvas1.place(x=90, y=250)
         print("Game Over")
-
 
         # We check the column for each player's win
     elif board[0][0] == board[1][0] == board[2][0] != 7 or board[0][0] == board[1][0] == board[2][0] != 7:
@@ -162,13 +161,19 @@ def button_press(house_num, ):  # total game_step = 9
         button9.update()
         board[2][2] = bu_text
         check_win()
+    if int(game_step) == 9:
+        canvas1 = Canvas(window, height=50, width=400, bg=back_color)
+        canvas1.create_text(205, 25, text=f"Draw, Play Again", fill="white", font=12)
+        canvas1.place(x=90, y=250)
 
     game_step = game_step + 1
+
     for i in board:
         print(i)
 
-while(flag1):
-    while(flag):
+
+while flag1:
+    while flag:
         window = Tk()
 
         window.title('Tic Tac Toe')
@@ -200,7 +205,11 @@ while(flag1):
 
         canvas.create_text(275, 30, text=f"{turn_1}'s turn", fill="black", font=12)
         canvas.place(x=11, y=520)
-        button_reset = Button(text="Reset Game", width=50, height=3, bg=my_line_color, font=20,command=reset_game)
+        button_reset = Button(text="Reset Game", width=50, height=1, bg=my_line_color, font=20, command=reset_game)
         button_reset.place(x=12, y=590)
+
+        button_quit_agme=Button(text="Quit Game", width=50, height=1, bg=my_line_color, font=20, command=quit)
+        button_quit_agme.place(x=12, y=635)
+
 
         window.mainloop()
